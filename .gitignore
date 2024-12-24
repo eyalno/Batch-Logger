@@ -1,0 +1,9 @@
+*.o
+*.out
+*.exe
+*.dSYM/
+main
+.DS_Store
+JobRunner
+~*
+/Users/eyalnoy/Library/Mobile Documents/com~apple~CloudDocs/Developer/Visual Studio Code/Companies/Headlands/Disaster-Recovery/.gitignore

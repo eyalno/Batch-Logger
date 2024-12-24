@@ -1,0 +1,64 @@
+#job_id,runtime_in_seconds,next_job_id
+
+#1,10,2
+#2,20,3
+#3,30,4
+#4,40,0
+#5,15,6
+#6,25,0
+#Expected Output: Chain 1: [1 -> 2 -> 3 -> 4] Total Runtime: 100 seconds
+
+# Edge Cases
+
+1,0,0
+# Expected Output: Chain 1: [1] Total Runtime: 0 seconds
+
+#1,60,99
+# Expected Output: Error: Job 99 referenced by next_job_id is missing from the input.
+
+#1,60,2
+#1,30,0
+#2,20,0
+# Expected Output: Error: Duplicate job_id 1 found in input.
+
+#1,abc,23
+#2,30,0
+# Expected Output: Error: Malformed input on line 2. Non-integer value found for runtime_in_seconds.
+
+#1,-10,2
+#2,30,0
+# Expected Output: Error: Negative values are not allowed for runtime_in_seconds or job_id.
+
+#1,60
+#2,30,0,extra
+# Expected Output: Error: Malformed input. Incorrect number of columns on line 2.
+
+#1,10,2
+#2,20,1
+# Expected Output: Error: Circular chain detected involving job_id 1.
+
+#1,1,2
+#2,1,3
+#3,1,4
+#4,1,5
+#5,1,6
+#6,1,7
+#7,1,8
+#8,1,9
+#9,1,10
+#...9998,1,9999
+#9999,1,0
+# Expected Output: Chain 1: [1 -> 2 -> 3 -> ... -> 9999] Total Runtime: 9999 seconds
+
+#1,2,10
+#10,15,20
+#20,25,30
+#30,35,10
+# Expected Output: Error: Circular chain detected involving job_id 10, 20, and 30.
+
+#1,10,2
+#2,20,3
+#3,30,4
+#4,40,0
+#5,15,6
+#6,25,0
